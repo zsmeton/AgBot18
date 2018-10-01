@@ -34,7 +34,7 @@ from utils import label_map_util
 
 from utils import visualization_utils as vis_util
 
-print("importing has finished")
+print("Importing has finished")
 
 # # Model preparation
 
@@ -154,8 +154,8 @@ def run_inference_for_single_image(image, graph):
 
 # ## Loop over each image and output figure with bounding boxes
 
+print("Begining Detection")
 for image_path in TEST_IMAGE_PATHS:
-    print("Hey Im doing a thing!")
     image = Image.open(image_path)
     # the array based representation of the image will be used later in order to prepare the
     # result image with boxes and labels on it.
@@ -175,6 +175,6 @@ for image_path in TEST_IMAGE_PATHS:
         use_normalized_coordinates=True,
         line_thickness=8)
     plt.figure(figsize=IMAGE_SIZE)
-    print("showing the image now:")
+    print("Showing the image now:")
     plt.imshow(image_np)
     plt.show()
