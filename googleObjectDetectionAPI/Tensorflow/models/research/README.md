@@ -55,7 +55,7 @@ request.
     and mathematic operations.
 -   [next_frame_prediction](next_frame_prediction): probabilistic future frame
     synthesis via cross convolutional networks.
--   [object_detection](object_detection): localizing and identifying multiple
+-   [object_detection](../../../../object_detection): localizing and identifying multiple
     objects in a single image.
 -   [pcl_rl](pcl_rl): code for several reinforcement learning algorithms,
     including Path Consistency Learning.
