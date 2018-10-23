@@ -66,9 +66,9 @@ def downloadModelInternet():
 
 
 # ## Load a (frozen) Tensorflow model into memory.
-PATH_TO_FROZEN_GRAPH = os.path.join('ourPrograms', 'basicDetectionOnImages', 'frozen_inference_graph.pb')  # or downloadModelInternet()
+PATH_TO_FROZEN_GRAPH = os.path.join('frozen_inference_graph.pb')  # or downloadModelInternet()
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('.', 'object_detection', 'data', 'mscoco_label_map.pbtxt')
+PATH_TO_LABELS = os.path.join('mscoco_label_map.pbtxt')
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
@@ -99,7 +99,7 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = os.path.join('ourPrograms', 'basicDetectionOnImages', 'images')
+PATH_TO_TEST_IMAGES_DIR = os.path.join('images')
 TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 4)]
 
 # Size, in inches, of the output images.

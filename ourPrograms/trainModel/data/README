@@ -1,0 +1,3 @@
+Folder is to contain records and csv files
+Records being image data set in TFR format
+CSV being Records before using csvDatasetToTFR.py
