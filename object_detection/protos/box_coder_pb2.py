@@ -7,17 +7,16 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-
-from object_detection.protos import faster_rcnn_box_coder_pb2 as object__detection_dot_protos_dot_faster__rcnn__box__coder__pb2
-from object_detection.protos import keypoint_box_coder_pb2 as object__detection_dot_protos_dot_keypoint__box__coder__pb2
-from object_detection.protos import mean_stddev_box_coder_pb2 as object__detection_dot_protos_dot_mean__stddev__box__coder__pb2
-from object_detection.protos import square_box_coder_pb2 as object__detection_dot_protos_dot_square__box__coder__pb2
-
+from object_detection.protos import \
+    keypoint_box_coder_pb2 as object__detection_dot_protos_dot_keypoint__box__coder__pb2, \
+    mean_stddev_box_coder_pb2 as object__detection_dot_protos_dot_mean__stddev__box__coder__pb2, \
+    square_box_coder_pb2 as object__detection_dot_protos_dot_square__box__coder__pb2, \
+    faster_rcnn_box_coder_pb2 as object__detection_dot_protos_dot_faster__rcnn__box__coder__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/box_coder.proto',

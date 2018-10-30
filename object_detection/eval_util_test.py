@@ -20,7 +20,6 @@ from __future__ import print_function
 
 import tensorflow as tf
 
-
 from object_detection import eval_util
 from object_detection.core import standard_fields as fields
 from object_detection.protos import eval_pb2

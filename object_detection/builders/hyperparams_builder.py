@@ -213,7 +213,7 @@ def build(hyperparams_config, is_training):
 
   affected_ops = [slim.conv2d, slim.separable_conv2d, slim.conv2d_transpose]
   if hyperparams_config.HasField('op') and (
-      hyperparams_config.op == hyperparams_pb2.Hyperparams.FC):
+          hyperparams_config.op == hyperparams_pb2.Hyperparams.FC):
     affected_ops = [slim.fully_connected]
   def scope_fn():
     with (slim.arg_scope([slim.batch_norm], **batch_norm_params)

@@ -7,19 +7,17 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-
-from object_detection.protos import anchor_generator_pb2 as object__detection_dot_protos_dot_anchor__generator__pb2
-from object_detection.protos import box_predictor_pb2 as object__detection_dot_protos_dot_box__predictor__pb2
-from object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2
-from object_detection.protos import image_resizer_pb2 as object__detection_dot_protos_dot_image__resizer__pb2
-from object_detection.protos import losses_pb2 as object__detection_dot_protos_dot_losses__pb2
-from object_detection.protos import post_processing_pb2 as object__detection_dot_protos_dot_post__processing__pb2
-
+from object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2, \
+    box_predictor_pb2 as object__detection_dot_protos_dot_box__predictor__pb2, \
+    post_processing_pb2 as object__detection_dot_protos_dot_post__processing__pb2, \
+    losses_pb2 as object__detection_dot_protos_dot_losses__pb2, \
+    anchor_generator_pb2 as object__detection_dot_protos_dot_anchor__generator__pb2, \
+    image_resizer_pb2 as object__detection_dot_protos_dot_image__resizer__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/faster_rcnn.proto',

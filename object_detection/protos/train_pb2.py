@@ -12,10 +12,8 @@ from google.protobuf import descriptor_pb2
 
 _sym_db = _symbol_database.Default()
 
-
-from object_detection.protos import optimizer_pb2 as object__detection_dot_protos_dot_optimizer__pb2
-from object_detection.protos import preprocessor_pb2 as object__detection_dot_protos_dot_preprocessor__pb2
-
+from object_detection.protos import optimizer_pb2 as object__detection_dot_protos_dot_optimizer__pb2, \
+    preprocessor_pb2 as object__detection_dot_protos_dot_preprocessor__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/train.proto',

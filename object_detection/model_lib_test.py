@@ -30,9 +30,9 @@ from tensorflow.contrib.tpu.python.tpu import tpu_estimator
 from object_detection import inputs
 from object_detection import model_hparams
 from object_detection import model_lib
-from object_detection.builders import model_builder
+from object_detection import model_builder
 from object_detection.core import standard_fields as fields
-from object_detection.utils import config_util
+from object_detection import config_util
 
 
 # Model for test. Options are:

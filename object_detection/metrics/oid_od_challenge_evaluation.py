@@ -37,7 +37,7 @@ import argparse
 import pandas as pd
 from google.protobuf import text_format
 
-from object_detection.metrics import io_utils
+from object_detection import io_utils
 from object_detection.metrics import oid_od_challenge_evaluation_utils as utils
 from object_detection.protos import string_int_label_map_pb2
 from object_detection.utils import object_detection_evaluation

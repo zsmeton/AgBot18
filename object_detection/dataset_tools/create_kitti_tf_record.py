@@ -44,9 +44,8 @@ import numpy as np
 import PIL.Image as pil
 import tensorflow as tf
 
-from object_detection.utils import dataset_util
-from object_detection.utils import label_map_util
-from object_detection.utils.np_box_ops import iou
+from object_detection.utils import dataset_util, label_map_util
+from object_detection import iou
 
 tf.app.flags.DEFINE_string('data_dir', '', 'Location of root directory for the '
                            'data. Folder structure is assumed to be:'

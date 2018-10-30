@@ -40,8 +40,7 @@ import PIL.Image
 import tensorflow as tf
 
 from object_detection.dataset_tools import tf_record_creation_util
-from object_detection.utils import dataset_util
-from object_detection.utils import label_map_util
+from object_detection.utils import dataset_util, label_map_util
 
 flags = tf.app.flags
 flags.DEFINE_string('data_dir', '', 'Root directory to raw pet dataset.')

@@ -19,9 +19,8 @@ import tensorflow as tf
 
 from object_detection.meta_architectures import ssd_meta_arch
 from object_detection.models import feature_map_generators
-from object_detection.models.keras_applications import mobilenet_v2
-from object_detection.utils import ops
-from object_detection.utils import shape_utils
+from object_detection import mobilenet_v2
+from object_detection.utils import ops, shape_utils
 
 
 class SSDMobileNetV2KerasFeatureExtractor(

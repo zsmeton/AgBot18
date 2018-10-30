@@ -43,9 +43,7 @@ from pycocotools import mask
 import tensorflow as tf
 
 from object_detection.dataset_tools import tf_record_creation_util
-from object_detection.utils import dataset_util
-from object_detection.utils import label_map_util
-
+from object_detection.utils import dataset_util, label_map_util
 
 flags = tf.app.flags
 tf.flags.DEFINE_boolean('include_masks', False,

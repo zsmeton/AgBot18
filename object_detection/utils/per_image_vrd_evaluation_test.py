@@ -16,7 +16,7 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import per_image_vrd_evaluation
+from object_detection import per_image_vrd_evaluation
 
 
 class SingleClassPerImageVrdEvaluationTest(tf.test.TestCase):

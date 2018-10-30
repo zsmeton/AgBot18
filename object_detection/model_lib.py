@@ -26,15 +26,13 @@ import tensorflow as tf
 
 from object_detection import eval_util
 from object_detection import inputs
-from object_detection.builders import graph_rewriter_builder
-from object_detection.builders import model_builder
+from object_detection import graph_rewriter_builder
+from object_detection import model_builder
 from object_detection.builders import optimizer_builder
 from object_detection.core import standard_fields as fields
-from object_detection.utils import config_util
-from object_detection.utils import label_map_util
-from object_detection.utils import shape_utils
-from object_detection.utils import variables_helper
-from object_detection.utils import visualization_utils as vis_utils
+from object_detection import config_util
+from object_detection import variables_helper
+from object_detection.utils import visualization_utils as vis_utils, shape_utils, label_map_util
 
 # A map of names to methods that help build the model.
 MODEL_BUILD_UTIL_MAP = {

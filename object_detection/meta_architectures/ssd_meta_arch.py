@@ -27,9 +27,7 @@ from object_detection.core import box_list_ops
 from object_detection.core import model
 from object_detection.core import standard_fields as fields
 from object_detection.core import target_assigner
-from object_detection.utils import ops
-from object_detection.utils import shape_utils
-from object_detection.utils import visualization_utils
+from object_detection.utils import visualization_utils, ops, shape_utils
 
 slim = tf.contrib.slim
 

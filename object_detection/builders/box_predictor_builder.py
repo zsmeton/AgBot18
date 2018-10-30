@@ -18,16 +18,13 @@
 import collections
 from absl import logging
 import tensorflow as tf
-from object_detection.predictors import convolutional_box_predictor
-from object_detection.predictors import convolutional_keras_box_predictor
+from object_detection.predictors import convolutional_box_predictor, convolutional_keras_box_predictor
 from object_detection.predictors import mask_rcnn_box_predictor
 from object_detection.predictors import rfcn_box_predictor
-from object_detection.predictors.heads import box_head
-from object_detection.predictors.heads import class_head
+from object_detection.predictors.heads import class_head, keras_class_head
 from object_detection.predictors.heads import keras_box_head
-from object_detection.predictors.heads import keras_class_head
 from object_detection.predictors.heads import keras_mask_head
-from object_detection.predictors.heads import mask_head
+from object_detection.predictors.heads import mask_head, box_head
 from object_detection.protos import box_predictor_pb2
 
 

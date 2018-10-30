@@ -11,27 +11,21 @@ import six.moves.urllib as urllib
 import sys
 import tarfile
 import tensorflow as tf
-import zipfile
 
 from distutils.version import StrictVersion
-from collections import defaultdict
-from io import StringIO
 from matplotlib import pyplot as plt
 from PIL import Image
 
 # This is needed since the notebook is stored in the object_detection folder.
-sys.path.append("..")
-from object_detection.utils import ops as utils_ops
+
 
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
 # ## Object detection imports
 # Here are the imports from the object detection module.
-
-from object_detection.utils import label_map_util
-
-from object_detection.utils import visualization_utils as vis_util
+sys.path.append("..")
+from object_detection.utils import visualization_utils as vis_util, ops as utils_ops, label_map_util
 
 print("Importing has finished")
 

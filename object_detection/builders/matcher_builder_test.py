@@ -18,9 +18,8 @@
 import tensorflow as tf
 
 from google.protobuf import text_format
-from object_detection.builders import matcher_builder
-from object_detection.matchers import argmax_matcher
-from object_detection.matchers import bipartite_matcher
+from object_detection import matcher_builder
+from object_detection.matchers import bipartite_matcher, argmax_matcher
 from object_detection.protos import matcher_pb2
 
 

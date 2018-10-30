@@ -20,13 +20,8 @@ import tensorflow as tf
 
 from google.protobuf import text_format
 
-from object_detection.protos import eval_pb2
-from object_detection.protos import image_resizer_pb2
-from object_detection.protos import input_reader_pb2
-from object_detection.protos import model_pb2
-from object_detection.protos import pipeline_pb2
-from object_detection.protos import train_pb2
-from object_detection.utils import config_util
+from object_detection.protos import model_pb2, eval_pb2, pipeline_pb2, train_pb2, image_resizer_pb2, input_reader_pb2
+from object_detection import config_util
 
 
 def _write_config(config, config_path):

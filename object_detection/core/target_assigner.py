@@ -40,8 +40,7 @@ from object_detection.core import box_list
 from object_detection.core import matcher as mat
 from object_detection.core import region_similarity_calculator as sim_calc
 from object_detection.core import standard_fields as fields
-from object_detection.matchers import argmax_matcher
-from object_detection.matchers import bipartite_matcher
+from object_detection.matchers import bipartite_matcher, argmax_matcher
 from object_detection.utils import shape_utils
 
 
@@ -462,7 +461,7 @@ def batch_assign_targets(target_assigner,
   if not isinstance(anchors_batch, list):
     anchors_batch = len(gt_box_batch) * [anchors_batch]
   if not all(
-      isinstance(anchors, box_list.BoxList) for anchors in anchors_batch):
+          isinstance(anchors, box_list.BoxList) for anchors in anchors_batch):
     raise ValueError('anchors_batch must be a BoxList or list of BoxLists.')
   if not (len(anchors_batch)
           == len(gt_box_batch)

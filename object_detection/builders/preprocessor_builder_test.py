@@ -19,7 +19,7 @@ import tensorflow as tf
 
 from google.protobuf import text_format
 
-from object_detection.builders import preprocessor_builder
+from object_detection import preprocessor_builder
 from object_detection.core import preprocessor
 from object_detection.protos import preprocessor_pb2
 
