@@ -27,27 +27,12 @@ def xml_to_csv(path):
     xml_df = pd.DataFrame(xml_list, columns=column_name)
     return xml_df
 
-def remove_spaces(path):
-    file = {}
-    with open(path,  'r') as file:
-        readie_boi = csv.reader(file, delimter=',')
-        row = {}
-        for column in readie_boi:
-            col = ''
-            for char in column:
-                if char is not ' ':
-                    col += char
-            row.append(col)
-        print(row)
-
-
 
 def main():
     # Change this to neccesary path
     image_path = os.path.join(os.getcwd(), 'images', 'train')
     xml_df = xml_to_csv(image_path)
     xml_df.to_csv(os.path.join('labels.csv'), index=None)
-    remove_spaces(os.path.join('labels.csv'))
 
     print('Successfully converted xml to csv.')
 

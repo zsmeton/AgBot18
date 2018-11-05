@@ -9,7 +9,9 @@ Usage:
 """
 from __future__ import division
 from __future__ import print_function
+
 import sys
+
 sys.path.append("../../")
 
 import os
@@ -21,9 +23,7 @@ from PIL import Image
 
 from collections import namedtuple
 
-
 from object_detection.utils import dataset_util
-
 
 flags = tf.app.flags
 flags.DEFINE_string('csv_input', '', 'Path to the CSV input')
@@ -43,6 +43,7 @@ def class_text_to_int(row_label):
         return 4
     else:
         return None
+
 
 def split(df, group):
     data = namedtuple('data', ['filename', 'object'])

@@ -44,9 +44,9 @@ Example usage:
 import functools
 import json
 import os
-import tensorflow as tf
-
 import sys
+
+import tensorflow as tf
 
 sys.path.append("../../")
 from object_detection.builders import dataset_builder
