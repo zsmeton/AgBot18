@@ -22,7 +22,9 @@ from object_detection.models import feature_map_generators
 from object_detection.utils import context_manager
 from object_detection.utils import ops
 from object_detection.utils import shape_utils
-from nets import mobilenet_v1
+import sys
+sys.path.append("../../")
+from slim.nets import mobilenet_v1
 
 slim = tf.contrib.slim
 

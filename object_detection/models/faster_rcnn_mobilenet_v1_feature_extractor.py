@@ -20,7 +20,9 @@ import tensorflow as tf
 
 from object_detection.meta_architectures import faster_rcnn_meta_arch
 from object_detection.utils import shape_utils
-from nets import mobilenet_v1
+import sys
+sys.path.append("../../")
+from slim.nets import mobilenet_v1
 
 slim = tf.contrib.slim
 
