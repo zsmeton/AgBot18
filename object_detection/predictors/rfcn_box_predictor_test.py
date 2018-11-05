@@ -18,8 +18,8 @@ import numpy as np
 import tensorflow as tf
 
 from google.protobuf import text_format
-from object_detection import hyperparams_builder
-from object_detection import rfcn_box_predictor as box_predictor
+from object_detection.builders import hyperparams_builder
+from object_detection.predictors import rfcn_box_predictor as box_predictor
 from object_detection.protos import hyperparams_pb2
 from object_detection.utils import test_case
 

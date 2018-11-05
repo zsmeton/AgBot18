@@ -21,7 +21,6 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_pb=_b('\n/object_detection/protos/bipartite_matcher.proto\x12\x17object_detection.protos\"4\n\x10\x42ipartiteMatcher\x12 \n\x11use_matmul_gather\x18\x06 \x01(\x08:\x05\x66\x61lse')
 )
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -57,6 +56,7 @@ _BIPARTITEMATCHER = _descriptor.Descriptor(
 )
 
 DESCRIPTOR.message_types_by_name['BipartiteMatcher'] = _BIPARTITEMATCHER
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 BipartiteMatcher = _reflection.GeneratedProtocolMessageType('BipartiteMatcher', (_message.Message,), dict(
   DESCRIPTOR = _BIPARTITEMATCHER,

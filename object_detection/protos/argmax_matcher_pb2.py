@@ -21,7 +21,6 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto2',
   serialized_pb=_b('\n,object_detection/protos/argmax_matcher.proto\x12\x17object_detection.protos\"\xec\x01\n\rArgMaxMatcher\x12\x1e\n\x11matched_threshold\x18\x01 \x01(\x02:\x03\x30.5\x12 \n\x13unmatched_threshold\x18\x02 \x01(\x02:\x03\x30.5\x12 \n\x11ignore_thresholds\x18\x03 \x01(\x08:\x05\x66\x61lse\x12,\n\x1enegatives_lower_than_unmatched\x18\x04 \x01(\x08:\x04true\x12\'\n\x18\x66orce_match_for_each_row\x18\x05 \x01(\x08:\x05\x66\x61lse\x12 \n\x11use_matmul_gather\x18\x06 \x01(\x08:\x05\x66\x61lse')
 )
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -92,6 +91,7 @@ _ARGMAXMATCHER = _descriptor.Descriptor(
 )
 
 DESCRIPTOR.message_types_by_name['ArgMaxMatcher'] = _ARGMAXMATCHER
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ArgMaxMatcher = _reflection.GeneratedProtocolMessageType('ArgMaxMatcher', (_message.Message,), dict(
   DESCRIPTOR = _ARGMAXMATCHER,

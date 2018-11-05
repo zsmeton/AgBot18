@@ -43,7 +43,9 @@ from pycocotools import mask
 import tensorflow as tf
 
 from object_detection.dataset_tools import tf_record_creation_util
-from object_detection.utils import dataset_util, label_map_util
+from object_detection.utils import dataset_util
+from object_detection.utils import label_map_util
+
 
 flags = tf.app.flags
 tf.flags.DEFINE_boolean('include_masks', False,
@@ -175,8 +177,8 @@ def create_tf_example(image,
           dataset_util.float_list_feature(ymin),
       'image/object/bbox/ymax':
           dataset_util.float_list_feature(ymax),
-      'image/object/class/text':
-          dataset_util.bytes_list_feature(category_names),
+      'image/object/class/label':
+          dataset_util.int64_list_feature(category_ids),
       'image/object/is_crowd':
           dataset_util.int64_list_feature(is_crowd),
       'image/object/area':

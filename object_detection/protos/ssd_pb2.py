@@ -7,29 +7,30 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-from object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2, \
-    region_similarity_calculator_pb2 as object__detection_dot_protos_dot_region__similarity__calculator__pb2, \
-    box_predictor_pb2 as object__detection_dot_protos_dot_box__predictor__pb2, \
-    box_coder_pb2 as object__detection_dot_protos_dot_box__coder__pb2, \
-    post_processing_pb2 as object__detection_dot_protos_dot_post__processing__pb2, \
-    matcher_pb2 as object__detection_dot_protos_dot_matcher__pb2, \
-    losses_pb2 as object__detection_dot_protos_dot_losses__pb2, \
-    anchor_generator_pb2 as object__detection_dot_protos_dot_anchor__generator__pb2, \
-    image_resizer_pb2 as object__detection_dot_protos_dot_image__resizer__pb2
+
+from object_detection.protos import anchor_generator_pb2 as object__detection_dot_protos_dot_anchor__generator__pb2
+from object_detection.protos import box_coder_pb2 as object__detection_dot_protos_dot_box__coder__pb2
+from object_detection.protos import box_predictor_pb2 as object__detection_dot_protos_dot_box__predictor__pb2
+from object_detection.protos import hyperparams_pb2 as object__detection_dot_protos_dot_hyperparams__pb2
+from object_detection.protos import image_resizer_pb2 as object__detection_dot_protos_dot_image__resizer__pb2
+from object_detection.protos import matcher_pb2 as object__detection_dot_protos_dot_matcher__pb2
+from object_detection.protos import losses_pb2 as object__detection_dot_protos_dot_losses__pb2
+from object_detection.protos import post_processing_pb2 as object__detection_dot_protos_dot_post__processing__pb2
+from object_detection.protos import region_similarity_calculator_pb2 as object__detection_dot_protos_dot_region__similarity__calculator__pb2
+
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/ssd.proto',
   package='object_detection.protos',
   syntax='proto2',
-  serialized_pb=_b('\n!object_detection/protos/ssd.proto\x12\x17object_detection.protos\x1a.object_detection/protos/anchor_generator.proto\x1a\'object_detection/protos/box_coder.proto\x1a+object_detection/protos/box_predictor.proto\x1a)object_detection/protos/hyperparams.proto\x1a+object_detection/protos/image_resizer.proto\x1a%object_detection/protos/matcher.proto\x1a$object_detection/protos/losses.proto\x1a-object_detection/protos/post_processing.proto\x1a:object_detection/protos/region_similarity_calculator.proto\"\x84\x08\n\x03Ssd\x12\x13\n\x0bnum_classes\x18\x01 \x01(\x05\x12<\n\rimage_resizer\x18\x02 \x01(\x0b\x32%.object_detection.protos.ImageResizer\x12G\n\x11\x66\x65\x61ture_extractor\x18\x03 \x01(\x0b\x32,.object_detection.protos.SsdFeatureExtractor\x12\x34\n\tbox_coder\x18\x04 \x01(\x0b\x32!.object_detection.protos.BoxCoder\x12\x31\n\x07matcher\x18\x05 \x01(\x0b\x32 .object_detection.protos.Matcher\x12R\n\x15similarity_calculator\x18\x06 \x01(\x0b\x32\x33.object_detection.protos.RegionSimilarityCalculator\x12)\n\x1a\x65ncode_background_as_zeros\x18\x0c \x01(\x08:\x05\x66\x61lse\x12 \n\x15negative_class_weight\x18\r \x01(\x02:\x01\x31\x12<\n\rbox_predictor\x18\x07 \x01(\x0b\x32%.object_detection.protos.BoxPredictor\x12\x42\n\x10\x61nchor_generator\x18\x08 \x01(\x0b\x32(.object_detection.protos.AnchorGenerator\x12@\n\x0fpost_processing\x18\t \x01(\x0b\x32\'.object_detection.protos.PostProcessing\x12+\n\x1dnormalize_loss_by_num_matches\x18\n \x01(\x08:\x04true\x12-\n\x1enormalize_loc_loss_by_codesize\x18\x0e \x01(\x08:\x05\x66\x61lse\x12+\n\x04loss\x18\x0b \x01(\x0b\x32\x1d.object_detection.protos.Loss\x12\x1f\n\x10\x66reeze_batchnorm\x18\x10 \x01(\x08:\x05\x66\x61lse\x12\'\n\x18inplace_batchnorm_update\x18\x0f \x01(\x08:\x05\x66\x61lse\x12.\n\x1fweight_regression_loss_by_score\x18\x11 \x01(\x08:\x05\x66\x61lse\x12>\n/use_expected_classification_loss_under_sampling\x18\x12 \x01(\x08:\x05\x66\x61lse\x12$\n\x19minimum_negative_sampling\x18\x13 \x01(\x02:\x01\x30\x12*\n\x1f\x64\x65sired_negative_sampling_ratio\x18\x14 \x01(\x02:\x01\x33\"\xf6\x02\n\x13SsdFeatureExtractor\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x1b\n\x10\x64\x65pth_multiplier\x18\x02 \x01(\x02:\x01\x31\x12\x15\n\tmin_depth\x18\x03 \x01(\x05:\x02\x31\x36\x12>\n\x10\x63onv_hyperparams\x18\x04 \x01(\x0b\x32$.object_detection.protos.Hyperparams\x12:\n+override_base_feature_extractor_hyperparams\x18\t \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0fpad_to_multiple\x18\x05 \x01(\x05:\x01\x31\x12#\n\x14use_explicit_padding\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x1c\n\ruse_depthwise\x18\x08 \x01(\x08:\x05\x66\x61lse\x12<\n\x03\x66pn\x18\n \x01(\x0b\x32/.object_detection.protos.FeaturePyramidNetworksJ\x04\x08\x06\x10\x07\"i\n\x16\x46\x65\x61turePyramidNetworks\x12\x14\n\tmin_level\x18\x01 \x01(\x05:\x01\x33\x12\x14\n\tmax_level\x18\x02 \x01(\x05:\x01\x37\x12#\n\x16\x61\x64\x64itional_layer_depth\x18\x03 \x01(\x05:\x03\x32\x35\x36')
+  serialized_pb=_b('\n!object_detection/protos/ssd.proto\x12\x17object_detection.protos\x1a.object_detection/protos/anchor_generator.proto\x1a\'object_detection/protos/box_coder.proto\x1a+object_detection/protos/box_predictor.proto\x1a)object_detection/protos/hyperparams.proto\x1a+object_detection/protos/image_resizer.proto\x1a%object_detection/protos/matcher.proto\x1a$object_detection/protos/losses.proto\x1a-object_detection/protos/post_processing.proto\x1a:object_detection/protos/region_similarity_calculator.proto\"\x84\x08\n\x03Ssd\x12\x13\n\x0bnum_classes\x18\x01 \x01(\x05\x12<\n\rimage_resizer\x18\x02 \x01(\x0b\x32%.object_detection.protos.ImageResizer\x12G\n\x11\x66\x65\x61ture_extractor\x18\x03 \x01(\x0b\x32,.object_detection.protos.SsdFeatureExtractor\x12\x34\n\tbox_coder\x18\x04 \x01(\x0b\x32!.object_detection.protos.BoxCoder\x12\x31\n\x07matcher\x18\x05 \x01(\x0b\x32 .object_detection.protos.Matcher\x12R\n\x15similarity_calculator\x18\x06 \x01(\x0b\x32\x33.object_detection.protos.RegionSimilarityCalculator\x12)\n\x1a\x65ncode_background_as_zeros\x18\x0c \x01(\x08:\x05\x66\x61lse\x12 \n\x15negative_class_weight\x18\r \x01(\x02:\x01\x31\x12<\n\rbox_predictor\x18\x07 \x01(\x0b\x32%.object_detection.protos.BoxPredictor\x12\x42\n\x10\x61nchor_generator\x18\x08 \x01(\x0b\x32(.object_detection.protos.AnchorGenerator\x12@\n\x0fpost_processing\x18\t \x01(\x0b\x32\'.object_detection.protos.PostProcessing\x12+\n\x1dnormalize_loss_by_num_matches\x18\n \x01(\x08:\x04true\x12-\n\x1enormalize_loc_loss_by_codesize\x18\x0e \x01(\x08:\x05\x66\x61lse\x12+\n\x04loss\x18\x0b \x01(\x0b\x32\x1d.object_detection.protos.Loss\x12\x1f\n\x10\x66reeze_batchnorm\x18\x10 \x01(\x08:\x05\x66\x61lse\x12\'\n\x18inplace_batchnorm_update\x18\x0f \x01(\x08:\x05\x66\x61lse\x12.\n\x1fweight_regression_loss_by_score\x18\x11 \x01(\x08:\x05\x66\x61lse\x12>\n/use_expected_classification_loss_under_sampling\x18\x12 \x01(\x08:\x05\x66\x61lse\x12$\n\x19minimum_negative_sampling\x18\x13 \x01(\x02:\x01\x30\x12*\n\x1f\x64\x65sired_negative_sampling_ratio\x18\x14 \x01(\x02:\x01\x33\"\xf6\x02\n\x13SsdFeatureExtractor\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x1b\n\x10\x64\x65pth_multiplier\x18\x02 \x01(\x02:\x01\x31\x12\x15\n\tmin_depth\x18\x03 \x01(\x05:\x02\x31\x36\x12>\n\x10\x63onv_hyperparams\x18\x04 \x01(\x0b\x32$.object_detection.protos.Hyperparams\x12:\n+override_base_feature_extractor_hyperparams\x18\t \x01(\x08:\x05\x66\x61lse\x12\x1a\n\x0fpad_to_multiple\x18\x05 \x01(\x05:\x01\x31\x12#\n\x14use_explicit_padding\x18\x07 \x01(\x08:\x05\x66\x61lse\x12\x1c\n\ruse_depthwise\x18\x08 \x01(\x08:\x05\x66\x61lse\x12<\n\x03\x66pn\x18\n \x01(\x0b\x32/.object_detection.protos.FeaturePyramidNetworksJ\x04\x08\x06\x10\x07\"D\n\x16\x46\x65\x61turePyramidNetworks\x12\x14\n\tmin_level\x18\x01 \x01(\x05:\x01\x33\x12\x14\n\tmax_level\x18\x02 \x01(\x05:\x01\x37')
   ,
   dependencies=[object__detection_dot_protos_dot_anchor__generator__pb2.DESCRIPTOR,object__detection_dot_protos_dot_box__coder__pb2.DESCRIPTOR,object__detection_dot_protos_dot_box__predictor__pb2.DESCRIPTOR,object__detection_dot_protos_dot_hyperparams__pb2.DESCRIPTOR,object__detection_dot_protos_dot_image__resizer__pb2.DESCRIPTOR,object__detection_dot_protos_dot_matcher__pb2.DESCRIPTOR,object__detection_dot_protos_dot_losses__pb2.DESCRIPTOR,object__detection_dot_protos_dot_post__processing__pb2.DESCRIPTOR,object__detection_dot_protos_dot_region__similarity__calculator__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -306,13 +307,6 @@ _FEATUREPYRAMIDNETWORKS = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-    _descriptor.FieldDescriptor(
-      name='additional_layer_depth', full_name='object_detection.protos.FeaturePyramidNetworks.additional_layer_depth', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=True, default_value=256,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
@@ -326,7 +320,7 @@ _FEATUREPYRAMIDNETWORKS = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1876,
-  serialized_end=1981,
+  serialized_end=1944,
 )
 
 _SSD.fields_by_name['image_resizer'].message_type = object__detection_dot_protos_dot_image__resizer__pb2._IMAGERESIZER
@@ -343,6 +337,7 @@ _SSDFEATUREEXTRACTOR.fields_by_name['fpn'].message_type = _FEATUREPYRAMIDNETWORK
 DESCRIPTOR.message_types_by_name['Ssd'] = _SSD
 DESCRIPTOR.message_types_by_name['SsdFeatureExtractor'] = _SSDFEATUREEXTRACTOR
 DESCRIPTOR.message_types_by_name['FeaturePyramidNetworks'] = _FEATUREPYRAMIDNETWORKS
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Ssd = _reflection.GeneratedProtocolMessageType('Ssd', (_message.Message,), dict(
   DESCRIPTOR = _SSD,

@@ -24,7 +24,7 @@ from object_detection.utils import test_case
 
 class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
 
-  def test_subsample_all_examples_dynamic(self):
+  def _test_subsample_all_examples(self, is_static=False):
     numpy_labels = np.random.permutation(300)
     indicator = tf.constant(np.ones(300) == 1)
     numpy_labels = (numpy_labels - 200) > 0
@@ -32,7 +32,8 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
     labels = tf.constant(numpy_labels)
 
     sampler = (
-        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler())
+        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
+            is_static=is_static))
     is_sampled = sampler.subsample(indicator, 64, labels)
     with self.test_session() as sess:
       is_sampled = sess.run(is_sampled)
@@ -41,26 +42,13 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
       self.assertTrue(sum(np.logical_and(
           np.logical_not(numpy_labels), is_sampled)) == 32)
 
+  def test_subsample_all_examples_dynamic(self):
+    self._test_subsample_all_examples()
+
   def test_subsample_all_examples_static(self):
-    numpy_labels = np.random.permutation(300)
-    indicator = np.array(np.ones(300) == 1, np.bool)
-    numpy_labels = (numpy_labels - 200) > 0
+    self._test_subsample_all_examples(is_static=True)
 
-    labels = np.array(numpy_labels, np.bool)
-
-    def graph_fn(indicator, labels):
-      sampler = (
-          balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
-              is_static=True))
-      return sampler.subsample(indicator, 64, labels)
-
-    is_sampled = self.execute(graph_fn, [indicator, labels])
-    self.assertTrue(sum(is_sampled) == 64)
-    self.assertTrue(sum(np.logical_and(numpy_labels, is_sampled)) == 32)
-    self.assertTrue(sum(np.logical_and(
-        np.logical_not(numpy_labels), is_sampled)) == 32)
-
-  def test_subsample_selection_dynamic(self):
+  def _test_subsample_selection(self, is_static=False):
     # Test random sampling when only some examples can be sampled:
     # 100 samples, 20 positives, 10 positives cannot be sampled
     numpy_labels = np.arange(100)
@@ -71,7 +59,8 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
     labels = tf.constant(numpy_labels)
 
     sampler = (
-        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler())
+        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
+            is_static=is_static))
     is_sampled = sampler.subsample(indicator, 64, labels)
     with self.test_session() as sess:
       is_sampled = sess.run(is_sampled)
@@ -82,30 +71,13 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
       self.assertAllEqual(is_sampled, np.logical_and(is_sampled,
                                                      numpy_indicator))
 
+  def test_subsample_selection_dynamic(self):
+    self._test_subsample_selection()
+
   def test_subsample_selection_static(self):
-    # Test random sampling when only some examples can be sampled:
-    # 100 samples, 20 positives, 10 positives cannot be sampled.
-    numpy_labels = np.arange(100)
-    numpy_indicator = numpy_labels < 90
-    indicator = np.array(numpy_indicator, np.bool)
-    numpy_labels = (numpy_labels - 80) >= 0
+    self._test_subsample_selection(is_static=True)
 
-    labels = np.array(numpy_labels, np.bool)
-
-    def graph_fn(indicator, labels):
-      sampler = (
-          balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
-              is_static=True))
-      return sampler.subsample(indicator, 64, labels)
-
-    is_sampled = self.execute(graph_fn, [indicator, labels])
-    self.assertTrue(sum(is_sampled) == 64)
-    self.assertTrue(sum(np.logical_and(numpy_labels, is_sampled)) == 10)
-    self.assertTrue(sum(np.logical_and(
-        np.logical_not(numpy_labels), is_sampled)) == 54)
-    self.assertAllEqual(is_sampled, np.logical_and(is_sampled, numpy_indicator))
-
-  def test_subsample_selection_larger_batch_size_dynamic(self):
+  def _test_subsample_selection_larger_batch_size(self, is_static=False):
     # Test random sampling when total number of examples that can be sampled are
     # less than batch size:
     # 100 samples, 50 positives, 40 positives cannot be sampled, batch size 64.
@@ -117,7 +89,8 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
     labels = tf.constant(numpy_labels)
 
     sampler = (
-        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler())
+        balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
+            is_static=is_static))
     is_sampled = sampler.subsample(indicator, 64, labels)
     with self.test_session() as sess:
       is_sampled = sess.run(is_sampled)
@@ -128,31 +101,11 @@ class BalancedPositiveNegativeSamplerTest(test_case.TestCase):
       self.assertAllEqual(is_sampled, np.logical_and(is_sampled,
                                                      numpy_indicator))
 
+  def test_subsample_selection_larger_batch_size_dynamic(self):
+    self._test_subsample_selection_larger_batch_size()
+
   def test_subsample_selection_larger_batch_size_static(self):
-    # Test random sampling when total number of examples that can be sampled are
-    # less than batch size:
-    # 100 samples, 50 positives, 40 positives cannot be sampled, batch size 64.
-    # It should still return 64 samples, with 4 of them that couldn't have been
-    # sampled.
-    numpy_labels = np.arange(100)
-    numpy_indicator = numpy_labels < 60
-    indicator = np.array(numpy_indicator, np.bool)
-    numpy_labels = (numpy_labels - 50) >= 0
-
-    labels = np.array(numpy_labels, np.bool)
-
-    def graph_fn(indicator, labels):
-      sampler = (
-          balanced_positive_negative_sampler.BalancedPositiveNegativeSampler(
-              is_static=True))
-      return sampler.subsample(indicator, 64, labels)
-
-    is_sampled = self.execute(graph_fn, [indicator, labels])
-    self.assertTrue(sum(is_sampled) == 64)
-    self.assertTrue(sum(np.logical_and(numpy_labels, is_sampled)) >= 10)
-    self.assertTrue(
-        sum(np.logical_and(np.logical_not(numpy_labels), is_sampled)) >= 50)
-    self.assertTrue(sum(np.logical_and(is_sampled, numpy_indicator)) == 60)
+    self._test_subsample_selection_larger_batch_size(is_static=True)
 
   def test_subsample_selection_no_batch_size(self):
     # Test random sampling when only some examples can be sampled:

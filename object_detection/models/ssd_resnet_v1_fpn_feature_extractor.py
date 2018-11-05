@@ -21,7 +21,9 @@ import tensorflow as tf
 
 from object_detection.meta_architectures import ssd_meta_arch
 from object_detection.models import feature_map_generators
-from object_detection.utils import ops, shape_utils, context_manager
+from object_detection.utils import context_manager
+from object_detection.utils import ops
+from object_detection.utils import shape_utils
 from nets import resnet_v1
 
 slim = tf.contrib.slim
@@ -41,7 +43,6 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
                fpn_scope_name,
                fpn_min_level=3,
                fpn_max_level=7,
-               additional_layer_depth=256,
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
@@ -71,7 +72,6 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
         maps in the backbone network, additional feature maps are created by
         applying stride 2 convolutions until we get the desired number of fpn
         levels.
-      additional_layer_depth: additional feature map layer channel depth.
       reuse_weights: Whether to reuse variables. Default is None.
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False. UNUSED currently.
@@ -104,7 +104,6 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
     self._fpn_scope_name = fpn_scope_name
     self._fpn_min_level = fpn_min_level
     self._fpn_max_level = fpn_max_level
-    self._additional_layer_depth = additional_layer_depth
 
   def preprocess(self, resized_inputs):
     """SSD preprocessing.
@@ -178,7 +177,7 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
             feature_block_list.append('block{}'.format(level - 1))
           fpn_features = feature_map_generators.fpn_top_down_feature_maps(
               [(key, image_features[key]) for key in feature_block_list],
-              depth=self._additional_layer_depth)
+              depth=256)
           feature_maps = []
           for level in range(self._fpn_min_level, base_fpn_max_level + 1):
             feature_maps.append(
@@ -189,7 +188,7 @@ class _SSDResnetV1FpnFeatureExtractor(ssd_meta_arch.SSDFeatureExtractor):
           for i in range(base_fpn_max_level, self._fpn_max_level):
             last_feature_map = slim.conv2d(
                 last_feature_map,
-                num_outputs=self._additional_layer_depth,
+                num_outputs=256,
                 kernel_size=[3, 3],
                 stride=2,
                 padding='SAME',
@@ -209,7 +208,6 @@ class SSDResnet50V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                conv_hyperparams_fn,
                fpn_min_level=3,
                fpn_max_level=7,
-               additional_layer_depth=256,
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
@@ -228,7 +226,6 @@ class SSDResnet50V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         base feature extractor.
       fpn_min_level: the minimum level in feature pyramid networks.
       fpn_max_level: the maximum level in feature pyramid networks.
-      additional_layer_depth: additional feature map layer channel depth.
       reuse_weights: Whether to reuse variables. Default is None.
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False. UNUSED currently.
@@ -248,7 +245,6 @@ class SSDResnet50V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         'fpn',
         fpn_min_level,
         fpn_max_level,
-        additional_layer_depth,
         reuse_weights=reuse_weights,
         use_explicit_padding=use_explicit_padding,
         use_depthwise=use_depthwise,
@@ -267,7 +263,6 @@ class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                conv_hyperparams_fn,
                fpn_min_level=3,
                fpn_max_level=7,
-               additional_layer_depth=256,
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
@@ -286,7 +281,6 @@ class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         base feature extractor.
       fpn_min_level: the minimum level in feature pyramid networks.
       fpn_max_level: the maximum level in feature pyramid networks.
-      additional_layer_depth: additional feature map layer channel depth.
       reuse_weights: Whether to reuse variables. Default is None.
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False. UNUSED currently.
@@ -306,7 +300,6 @@ class SSDResnet101V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         'fpn',
         fpn_min_level,
         fpn_max_level,
-        additional_layer_depth,
         reuse_weights=reuse_weights,
         use_explicit_padding=use_explicit_padding,
         use_depthwise=use_depthwise,
@@ -325,7 +318,6 @@ class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
                conv_hyperparams_fn,
                fpn_min_level=3,
                fpn_max_level=7,
-               additional_layer_depth=256,
                reuse_weights=None,
                use_explicit_padding=False,
                use_depthwise=False,
@@ -344,7 +336,6 @@ class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         base feature extractor.
       fpn_min_level: the minimum level in feature pyramid networks.
       fpn_max_level: the maximum level in feature pyramid networks.
-      additional_layer_depth: additional feature map layer channel depth.
       reuse_weights: Whether to reuse variables. Default is None.
       use_explicit_padding: Whether to use explicit padding when extracting
         features. Default is False. UNUSED currently.
@@ -364,7 +355,6 @@ class SSDResnet152V1FpnFeatureExtractor(_SSDResnetV1FpnFeatureExtractor):
         'fpn',
         fpn_min_level,
         fpn_max_level,
-        additional_layer_depth,
         reuse_weights=reuse_weights,
         use_explicit_padding=use_explicit_padding,
         use_depthwise=use_depthwise,

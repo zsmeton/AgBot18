@@ -22,8 +22,8 @@ Example box operations that are supported:
 import numpy as np
 
 from object_detection.utils import np_box_list_ops
-from object_detection import np_box_mask_list
-from object_detection import np_mask_ops
+from object_detection.utils import np_box_mask_list
+from object_detection.utils import np_mask_ops
 
 
 def box_list_to_box_mask_list(boxlist):

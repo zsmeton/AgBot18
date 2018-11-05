@@ -14,7 +14,6 @@
 # ==============================================================================
 """A convenience wrapper around tf.test.TestCase to enable TPU tests."""
 
-import os
 import tensorflow as tf
 from tensorflow.contrib import tpu
 
@@ -22,8 +21,6 @@ flags = tf.app.flags
 
 flags.DEFINE_bool('tpu_test', False, 'Whether to configure test for TPU.')
 FLAGS = flags.FLAGS
-
-
 
 
 class TestCase(tf.test.TestCase):

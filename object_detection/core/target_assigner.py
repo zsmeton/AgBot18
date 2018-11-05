@@ -40,7 +40,8 @@ from object_detection.core import box_list
 from object_detection.core import matcher as mat
 from object_detection.core import region_similarity_calculator as sim_calc
 from object_detection.core import standard_fields as fields
-from object_detection.matchers import bipartite_matcher, argmax_matcher
+from object_detection.matchers import argmax_matcher
+from object_detection.matchers import bipartite_matcher
 from object_detection.utils import shape_utils
 
 
@@ -92,7 +93,8 @@ class TargetAssigner(object):
              groundtruth_boxes,
              groundtruth_labels=None,
              unmatched_class_label=None,
-             groundtruth_weights=None):
+             groundtruth_weights=None,
+             **params):
     """Assign classification and regression targets to each anchor.
 
     For a given set of anchors and groundtruth detections, match anchors
@@ -119,11 +121,9 @@ class TargetAssigner(object):
         If set to None, unmatched_cls_target is set to be [0] for each anchor.
       groundtruth_weights: a float tensor of shape [M] indicating the weight to
         assign to all anchors match to a particular groundtruth box. The weights
-        must be in [0., 1.]. If None, all weights are set to 1. Generally no
-        groundtruth boxes with zero weight match to any anchors as matchers are
-        aware of groundtruth weights. Additionally, `cls_weights` and
-        `reg_weights` are calculated using groundtruth weights as an added
-        safety.
+        must be in [0., 1.]. If None, all weights are set to 1.
+      **params: Additional keyword arguments for specific implementations of
+              the Matcher.
 
     Returns:
       cls_targets: a float32 tensor with shape [num_anchors, d_1, d_2 ... d_k],
@@ -177,8 +177,7 @@ class TargetAssigner(object):
         [unmatched_shape_assert, labels_and_box_shapes_assert]):
       match_quality_matrix = self._similarity_calc.compare(groundtruth_boxes,
                                                            anchors)
-      match = self._matcher.match(match_quality_matrix,
-                                  valid_rows=tf.greater(groundtruth_weights, 0))
+      match = self._matcher.match(match_quality_matrix, **params)
       reg_targets = self._create_regression_targets(anchors,
                                                     groundtruth_boxes,
                                                     match)
@@ -461,7 +460,7 @@ def batch_assign_targets(target_assigner,
   if not isinstance(anchors_batch, list):
     anchors_batch = len(gt_box_batch) * [anchors_batch]
   if not all(
-          isinstance(anchors, box_list.BoxList) for anchors in anchors_batch):
+      isinstance(anchors, box_list.BoxList) for anchors in anchors_batch):
     raise ValueError('anchors_batch must be a BoxList or list of BoxLists.')
   if not (len(anchors_batch)
           == len(gt_box_batch)

@@ -17,7 +17,8 @@
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import test_case, learning_schedules
+from object_detection.utils import learning_schedules
+from object_detection.utils import test_case
 
 
 class LearningSchedulesTest(test_case.TestCase):

@@ -21,7 +21,8 @@ Example box operations that are supported:
 """
 import numpy as np
 
-from object_detection.utils import np_box_ops, np_box_list
+from object_detection.utils import np_box_list
+from object_detection.utils import np_box_ops
 
 
 class SortOrder(object):

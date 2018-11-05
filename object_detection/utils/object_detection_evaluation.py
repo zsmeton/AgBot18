@@ -35,7 +35,9 @@ import unicodedata
 import numpy as np
 
 from object_detection.core import standard_fields
-from object_detection.utils import per_image_evaluation, metrics, label_map_util
+from object_detection.utils import label_map_util
+from object_detection.utils import metrics
+from object_detection.utils import per_image_evaluation
 
 
 class DetectionEvaluator(object):
@@ -201,8 +203,8 @@ class ObjectDetectionEvaluator(DetectionEvaluator):
       raise ValueError('Image with id {} already added.'.format(image_id))
 
     groundtruth_classes = (
-            groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
-            self._label_id_offset)
+        groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
+        self._label_id_offset)
     # If the key is not present in the groundtruth_dict or the array is empty
     # (unless there are no annotations for the groundtruth on this image)
     # use values from the dictionary or insert None otherwise.
@@ -464,8 +466,8 @@ class OpenImagesDetectionEvaluator(ObjectDetectionEvaluator):
       raise ValueError('Image with id {} already added.'.format(image_id))
 
     groundtruth_classes = (
-            groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
-            self._label_id_offset)
+        groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
+        self._label_id_offset)
     # If the key is not present in the groundtruth_dict or the array is empty
     # (unless there are no annotations for the groundtruth on this image)
     # use values from the dictionary or insert None otherwise.
@@ -558,8 +560,8 @@ class OpenImagesDetectionChallengeEvaluator(OpenImagesDetectionEvaluator):
     super(OpenImagesDetectionChallengeEvaluator,
           self).add_single_ground_truth_image_info(image_id, groundtruth_dict)
     groundtruth_classes = (
-            groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
-            self._label_id_offset)
+        groundtruth_dict[standard_fields.InputDataFields.groundtruth_classes] -
+        self._label_id_offset)
     self._evaluatable_labels[image_id] = np.unique(
         np.concatenate(((groundtruth_dict.get(
             standard_fields.InputDataFields.groundtruth_image_classes,

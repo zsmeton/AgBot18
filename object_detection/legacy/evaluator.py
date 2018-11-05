@@ -273,7 +273,6 @@ def evaluate(create_input_dict_fn, create_model_fn, eval_config, categories,
       master=eval_config.eval_master,
       save_graph=eval_config.save_graph,
       save_graph_dir=(eval_dir if eval_config.save_graph else ''),
-      losses_dict=losses_dict,
-      eval_export_path=eval_config.export_path)
+      losses_dict=losses_dict)
 
   return metrics

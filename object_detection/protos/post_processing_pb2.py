@@ -19,9 +19,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/post_processing.proto',
   package='object_detection.protos',
   syntax='proto2',
-  serialized_pb=_b('\n-object_detection/protos/post_processing.proto\x12\x17object_detection.protos\"\xbc\x01\n\x16\x42\x61tchNonMaxSuppression\x12\x1a\n\x0fscore_threshold\x18\x01 \x01(\x02:\x01\x30\x12\x1a\n\riou_threshold\x18\x02 \x01(\x02:\x03\x30.6\x12%\n\x18max_detections_per_class\x18\x03 \x01(\x05:\x03\x31\x30\x30\x12!\n\x14max_total_detections\x18\x05 \x01(\x05:\x03\x31\x30\x30\x12 \n\x11use_static_shapes\x18\x06 \x01(\x08:\x05\x66\x61lse\"\x91\x02\n\x0ePostProcessing\x12R\n\x19\x62\x61tch_non_max_suppression\x18\x01 \x01(\x0b\x32/.object_detection.protos.BatchNonMaxSuppression\x12Y\n\x0fscore_converter\x18\x02 \x01(\x0e\x32\x36.object_detection.protos.PostProcessing.ScoreConverter:\x08IDENTITY\x12\x16\n\x0blogit_scale\x18\x03 \x01(\x02:\x01\x31\"8\n\x0eScoreConverter\x12\x0c\n\x08IDENTITY\x10\x00\x12\x0b\n\x07SIGMOID\x10\x01\x12\x0b\n\x07SOFTMAX\x10\x02')
+  serialized_pb=_b('\n-object_detection/protos/post_processing.proto\x12\x17object_detection.protos\"\x9a\x01\n\x16\x42\x61tchNonMaxSuppression\x12\x1a\n\x0fscore_threshold\x18\x01 \x01(\x02:\x01\x30\x12\x1a\n\riou_threshold\x18\x02 \x01(\x02:\x03\x30.6\x12%\n\x18max_detections_per_class\x18\x03 \x01(\x05:\x03\x31\x30\x30\x12!\n\x14max_total_detections\x18\x05 \x01(\x05:\x03\x31\x30\x30\"\x91\x02\n\x0ePostProcessing\x12R\n\x19\x62\x61tch_non_max_suppression\x18\x01 \x01(\x0b\x32/.object_detection.protos.BatchNonMaxSuppression\x12Y\n\x0fscore_converter\x18\x02 \x01(\x0e\x32\x36.object_detection.protos.PostProcessing.ScoreConverter:\x08IDENTITY\x12\x16\n\x0blogit_scale\x18\x03 \x01(\x02:\x01\x31\"8\n\x0eScoreConverter\x12\x0c\n\x08IDENTITY\x10\x00\x12\x0b\n\x07SIGMOID\x10\x01\x12\x0b\n\x07SOFTMAX\x10\x02')
 )
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -46,8 +45,8 @@ _POSTPROCESSING_SCORECONVERTER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=483,
-  serialized_end=539,
+  serialized_start=449,
+  serialized_end=505,
 )
 _sym_db.RegisterEnumDescriptor(_POSTPROCESSING_SCORECONVERTER)
 
@@ -87,13 +86,6 @@ _BATCHNONMAXSUPPRESSION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-    _descriptor.FieldDescriptor(
-      name='use_static_shapes', full_name='object_detection.protos.BatchNonMaxSuppression.use_static_shapes', index=4,
-      number=6, type=8, cpp_type=7, label=1,
-      has_default_value=True, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
@@ -107,7 +99,7 @@ _BATCHNONMAXSUPPRESSION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=75,
-  serialized_end=263,
+  serialized_end=229,
 )
 
 
@@ -152,8 +144,8 @@ _POSTPROCESSING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=539,
+  serialized_start=232,
+  serialized_end=505,
 )
 
 _POSTPROCESSING.fields_by_name['batch_non_max_suppression'].message_type = _BATCHNONMAXSUPPRESSION
@@ -161,6 +153,7 @@ _POSTPROCESSING.fields_by_name['score_converter'].enum_type = _POSTPROCESSING_SC
 _POSTPROCESSING_SCORECONVERTER.containing_type = _POSTPROCESSING
 DESCRIPTOR.message_types_by_name['BatchNonMaxSuppression'] = _BATCHNONMAXSUPPRESSION
 DESCRIPTOR.message_types_by_name['PostProcessing'] = _POSTPROCESSING
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 BatchNonMaxSuppression = _reflection.GeneratedProtocolMessageType('BatchNonMaxSuppression', (_message.Message,), dict(
   DESCRIPTOR = _BATCHNONMAXSUPPRESSION,

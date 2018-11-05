@@ -810,11 +810,9 @@ def random_image_scale(image,
     image = tf.image.resize_images(
         image, [image_newysize, image_newxsize], align_corners=True)
     result.append(image)
-    if masks is not None:
-      masks = tf.image.resize_images(
-          masks, [image_newysize, image_newxsize],
-          method=tf.image.ResizeMethod.NEAREST_NEIGHBOR,
-          align_corners=True)
+    if masks:
+      masks = tf.image.resize_nearest_neighbor(
+          masks, [image_newysize, image_newxsize], align_corners=True)
       result.append(masks)
     return tuple(result)
 
@@ -2971,8 +2969,7 @@ def get_default_func_arg_map(include_label_scores=False,
   """
   groundtruth_label_scores = None
   if include_label_scores:
-    groundtruth_label_scores = (
-        fields.InputDataFields.groundtruth_confidences)
+    groundtruth_label_scores = (fields.InputDataFields.groundtruth_label_scores)
 
   multiclass_scores = None
   if include_multiclass_scores:

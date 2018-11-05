@@ -7,15 +7,16 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-from object_detection.protos import \
-    multiscale_anchor_generator_pb2 as object__detection_dot_protos_dot_multiscale__anchor__generator__pb2, \
-    grid_anchor_generator_pb2 as object__detection_dot_protos_dot_grid__anchor__generator__pb2, \
-    ssd_anchor_generator_pb2 as object__detection_dot_protos_dot_ssd__anchor__generator__pb2
+
+from object_detection.protos import grid_anchor_generator_pb2 as object__detection_dot_protos_dot_grid__anchor__generator__pb2
+from object_detection.protos import ssd_anchor_generator_pb2 as object__detection_dot_protos_dot_ssd__anchor__generator__pb2
+from object_detection.protos import multiscale_anchor_generator_pb2 as object__detection_dot_protos_dot_multiscale__anchor__generator__pb2
+
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='object_detection/protos/anchor_generator.proto',
@@ -24,7 +25,6 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\n.object_detection/protos/anchor_generator.proto\x12\x17object_detection.protos\x1a\x33object_detection/protos/grid_anchor_generator.proto\x1a\x32object_detection/protos/ssd_anchor_generator.proto\x1a\x39object_detection/protos/multiscale_anchor_generator.proto\"\xa2\x02\n\x0f\x41nchorGenerator\x12M\n\x15grid_anchor_generator\x18\x01 \x01(\x0b\x32,.object_detection.protos.GridAnchorGeneratorH\x00\x12K\n\x14ssd_anchor_generator\x18\x02 \x01(\x0b\x32+.object_detection.protos.SsdAnchorGeneratorH\x00\x12Y\n\x1bmultiscale_anchor_generator\x18\x03 \x01(\x0b\x32\x32.object_detection.protos.MultiscaleAnchorGeneratorH\x00\x42\x18\n\x16\x61nchor_generator_oneof')
   ,
   dependencies=[object__detection_dot_protos_dot_grid__anchor__generator__pb2.DESCRIPTOR,object__detection_dot_protos_dot_ssd__anchor__generator__pb2.DESCRIPTOR,object__detection_dot_protos_dot_multiscale__anchor__generator__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -89,6 +89,7 @@ _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof'].fields.append(
   _ANCHORGENERATOR.fields_by_name['multiscale_anchor_generator'])
 _ANCHORGENERATOR.fields_by_name['multiscale_anchor_generator'].containing_oneof = _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof']
 DESCRIPTOR.message_types_by_name['AnchorGenerator'] = _ANCHORGENERATOR
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AnchorGenerator = _reflection.GeneratedProtocolMessageType('AnchorGenerator', (_message.Message,), dict(
   DESCRIPTOR = _ANCHORGENERATOR,

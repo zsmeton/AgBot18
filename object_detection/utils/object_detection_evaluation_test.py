@@ -496,7 +496,7 @@ class WeightedPascalEvaluationTest(tf.test.TestCase):
         {standard_fields.InputDataFields.groundtruth_boxes: groundtruth_boxes2,
          standard_fields.InputDataFields.groundtruth_classes:
          groundtruth_class_labels2
-         })
+        })
     self.add_common_detected()
 
     metrics = self.wp_eval.evaluate()
@@ -529,7 +529,7 @@ class WeightedPascalEvaluationTest(tf.test.TestCase):
          groundtruth_class_labels2,
          standard_fields.InputDataFields.groundtruth_difficult:
          groundtruth_is_difficult_list2
-         })
+        })
     self.add_common_detected()
 
     metrics = self.wp_eval.evaluate()
