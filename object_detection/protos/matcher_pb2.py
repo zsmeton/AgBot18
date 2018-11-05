@@ -24,7 +24,6 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\n%object_detection/protos/matcher.proto\x12\x17object_detection.protos\x1a,object_detection/protos/argmax_matcher.proto\x1a/object_detection/protos/bipartite_matcher.proto\"\xa4\x01\n\x07Matcher\x12@\n\x0e\x61rgmax_matcher\x18\x01 \x01(\x0b\x32&.object_detection.protos.ArgMaxMatcherH\x00\x12\x46\n\x11\x62ipartite_matcher\x18\x02 \x01(\x0b\x32).object_detection.protos.BipartiteMatcherH\x00\x42\x0f\n\rmatcher_oneof')
   ,
   dependencies=[object__detection_dot_protos_dot_argmax__matcher__pb2.DESCRIPTOR,object__detection_dot_protos_dot_bipartite__matcher__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -78,6 +77,7 @@ _MATCHER.oneofs_by_name['matcher_oneof'].fields.append(
   _MATCHER.fields_by_name['bipartite_matcher'])
 _MATCHER.fields_by_name['bipartite_matcher'].containing_oneof = _MATCHER.oneofs_by_name['matcher_oneof']
 DESCRIPTOR.message_types_by_name['Matcher'] = _MATCHER
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Matcher = _reflection.GeneratedProtocolMessageType('Matcher', (_message.Message,), dict(
   DESCRIPTOR = _MATCHER,

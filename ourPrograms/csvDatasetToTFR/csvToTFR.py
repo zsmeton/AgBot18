@@ -3,7 +3,7 @@ Source:https://becominghuman.ai/tensorflow-object-detection-api-tutorial-trainin
 Usage:
   # From tensorflow/models/
   # Create train data:
-  python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=train.record
+  python generate_tfrecord.py --csv_input=data/labels.csv  --output_path=train.record
   # Create test data:
   python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=test.record
 """
@@ -18,7 +18,7 @@ import tensorflow as tf
 
 from PIL import Image
 from object_detection.utils import dataset_util
-from collections import namedtuple, OrderedDict
+from collections import namedtuple
 
 flags = tf.app.flags
 flags.DEFINE_string('csv_input', '', 'Path to the CSV input')

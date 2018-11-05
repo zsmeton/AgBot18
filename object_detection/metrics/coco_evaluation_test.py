@@ -24,25 +24,14 @@ from object_detection.core import standard_fields
 from object_detection.metrics import coco_evaluation
 
 
-def _get_categories_list():
-  return [{
-      'id': 1,
-      'name': 'person'
-  }, {
-      'id': 2,
-      'name': 'dog'
-  }, {
-      'id': 3,
-      'name': 'cat'
-  }]
-
-
 class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetections(self):
     """Tests that mAP is calculated correctly on GT and Detections."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     coco_evaluator.add_single_ground_truth_image_info(
         image_id='image1',
         groundtruth_dict={
@@ -99,8 +88,17 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetectionsSkipCrowd(self):
     """Tests computing mAP with is_crowd GT boxes skipped."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{
+        'id': 0,
+        'name': 'person'
+    }, {
+        'id': 1,
+        'name': 'cat'
+    }, {
+        'id': 2,
+        'name': 'dog'
+    }]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     coco_evaluator.add_single_ground_truth_image_info(
         image_id='image1',
         groundtruth_dict={
@@ -126,8 +124,17 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetectionsEmptyCrowd(self):
     """Tests computing mAP with empty is_crowd array passed in."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{
+        'id': 0,
+        'name': 'person'
+    }, {
+        'id': 1,
+        'name': 'cat'
+    }, {
+        'id': 2,
+        'name': 'dog'
+    }]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     coco_evaluator.add_single_ground_truth_image_info(
         image_id='image1',
         groundtruth_dict={
@@ -153,9 +160,11 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testRejectionOnDuplicateGroundtruth(self):
     """Tests that groundtruth cannot be added more than once for an image."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    categories = [{'id': 1, 'name': 'cat'},
+                  {'id': 2, 'name': 'dog'},
+                  {'id': 3, 'name': 'elephant'}]
     #  Add groundtruth
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(categories)
     image_key1 = 'img1'
     groundtruth_boxes1 = np.array([[0, 0, 1, 1], [0, 0, 2, 2], [0, 0, 3, 3]],
                                   dtype=float)
@@ -180,9 +189,11 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testRejectionOnDuplicateDetections(self):
     """Tests that detections cannot be added more than once for an image."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    categories = [{'id': 1, 'name': 'cat'},
+                  {'id': 2, 'name': 'dog'},
+                  {'id': 3, 'name': 'elephant'}]
     #  Add groundtruth
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(categories)
     coco_evaluator.add_single_ground_truth_image_info(
         image_id='image1',
         groundtruth_dict={
@@ -216,8 +227,10 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 
   def testExceptionRaisedWithMissingGroundtruth(self):
     """Tests that exception is raised for detection with missing groundtruth."""
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    categories = [{'id': 1, 'name': 'cat'},
+                  {'id': 2, 'name': 'dog'},
+                  {'id': 3, 'name': 'elephant'}]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(categories)
     with self.assertRaises(ValueError):
       coco_evaluator.add_single_detected_image_info(
           image_id='image1',
@@ -234,8 +247,10 @@ class CocoDetectionEvaluationTest(tf.test.TestCase):
 class CocoEvaluationPyFuncTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetections(self):
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     image_id = tf.placeholder(tf.string, shape=())
     groundtruth_boxes = tf.placeholder(tf.float32, shape=(None, 4))
     groundtruth_classes = tf.placeholder(tf.float32, shape=(None))
@@ -295,22 +310,31 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP@.75IOU'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (small)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@10'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (small)'], 1.0)
     self.assertFalse(coco_evaluator._groundtruth_list)
     self.assertFalse(coco_evaluator._detection_boxes_list)
     self.assertFalse(coco_evaluator._image_ids)
 
   def testGetOneMAPWithMatchingGroundtruthAndDetectionsPadded(self):
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{
+        'id': 0,
+        'name': 'person'
+    }, {
+        'id': 1,
+        'name': 'cat'
+    }, {
+        'id': 2,
+        'name': 'dog'
+    }]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     image_id = tf.placeholder(tf.string, shape=())
     groundtruth_boxes = tf.placeholder(tf.float32, shape=(None, 4))
     groundtruth_classes = tf.placeholder(tf.float32, shape=(None))
@@ -391,22 +415,24 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP@.75IOU'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (small)'], 1.0)
-    self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 0.83333331)
+    self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 0.75)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@10'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (small)'], 1.0)
     self.assertFalse(coco_evaluator._groundtruth_list)
     self.assertFalse(coco_evaluator._detection_boxes_list)
     self.assertFalse(coco_evaluator._image_ids)
 
   def testGetOneMAPWithMatchingGroundtruthAndDetectionsBatched(self):
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     batch_size = 3
     image_id = tf.placeholder(tf.string, shape=(batch_size))
     groundtruth_boxes = tf.placeholder(tf.float32, shape=(batch_size, None, 4))
@@ -453,22 +479,24 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP@.75IOU'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (small)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@10'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (small)'], 1.0)
     self.assertFalse(coco_evaluator._groundtruth_list)
     self.assertFalse(coco_evaluator._detection_boxes_list)
     self.assertFalse(coco_evaluator._image_ids)
 
   def testGetOneMAPWithMatchingGroundtruthAndDetectionsPaddedBatches(self):
-    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(
-        _get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoDetectionEvaluator(category_list)
     batch_size = 3
     image_id = tf.placeholder(tf.string, shape=(batch_size))
     groundtruth_boxes = tf.placeholder(tf.float32, shape=(batch_size, None, 4))
@@ -497,40 +525,27 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
     _, update_op = eval_metric_ops['DetectionBoxes_Precision/mAP']
 
     with self.test_session() as sess:
-      sess.run(
-          update_op,
-          feed_dict={
-              image_id: ['image1', 'image2', 'image3'],
-              groundtruth_boxes:
-                  np.array([[[100., 100., 200., 200.], [-1, -1, -1, -1]],
-                            [[50., 50., 100., 100.], [-1, -1, -1, -1]],
-                            [[25., 25., 50., 50.], [10., 10., 15., 15.]]]),
-              groundtruth_classes:
-                  np.array([[1, -1], [3, -1], [2, 2]]),
-              num_gt_boxes_per_image:
-                  np.array([1, 1, 2]),
-              detection_boxes:
-                  np.array([[[100., 100., 200., 200.],
-                             [0., 0., 0., 0.],
-                             [0., 0., 0., 0.]],
-                            [[50., 50., 100., 100.],
-                             [0., 0., 0., 0.],
-                             [0., 0., 0., 0.]],
-                            [[25., 25., 50., 50.],
-                             [10., 10., 15., 15.],
-                             [10., 10., 15., 15.]]]),
-              detection_scores:
-                  np.array([[.8, 0., 0.], [.7, 0., 0.], [.95, .9, 0.9]]),
-              detection_classes:
-                  np.array([[1, -1, -1], [3, -1, -1], [2, 2, 2]]),
-              num_det_boxes_per_image:
-                  np.array([1, 1, 3]),
-          })
-
-    # Check the number of bounding boxes added.
-    self.assertEqual(len(coco_evaluator._groundtruth_list), 4)
-    self.assertEqual(len(coco_evaluator._detection_boxes_list), 5)
-
+      sess.run(update_op,
+               feed_dict={
+                   image_id: ['image1', 'image2', 'image3'],
+                   groundtruth_boxes: np.array([[[100., 100., 200., 200.],
+                                                 [-1, -1, -1, -1]],
+                                                [[50., 50., 100., 100.],
+                                                 [-1, -1, -1, -1]],
+                                                [[25., 25., 50., 50.],
+                                                 [10., 10., 15., 15.]]]),
+                   groundtruth_classes: np.array([[1, -1], [3, -1], [2, 2]]),
+                   num_gt_boxes_per_image: np.array([1, 1, 2]),
+                   detection_boxes: np.array([[[100., 100., 200., 200.],
+                                               [0., 0., 0., 0.]],
+                                              [[50., 50., 100., 100.],
+                                               [0., 0., 0., 0.]],
+                                              [[25., 25., 50., 50.],
+                                               [10., 10., 15., 15.]]]),
+                   detection_scores: np.array([[.8, 0.], [.7, 0.], [.95, .9]]),
+                   detection_classes: np.array([[1, -1], [3, -1], [2, 2]]),
+                   num_det_boxes_per_image: np.array([1, 1, 2]),
+               })
     metrics = {}
     for key, (value_op, _) in eval_metric_ops.iteritems():
       metrics[key] = value_op
@@ -540,14 +555,14 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP@.75IOU'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Precision/mAP (small)'], 1.0)
-    self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 0.83333331)
+    self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@1'], 0.75)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@10'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (large)'], 1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (medium)'],
-                           1.0)
+                           -1.0)
     self.assertAlmostEqual(metrics['DetectionBoxes_Recall/AR@100 (small)'], 1.0)
     self.assertFalse(coco_evaluator._groundtruth_list)
     self.assertFalse(coco_evaluator._detection_boxes_list)
@@ -557,7 +572,10 @@ class CocoEvaluationPyFuncTest(tf.test.TestCase):
 class CocoMaskEvaluationTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetections(self):
-    coco_evaluator = coco_evaluation.CocoMaskEvaluator(_get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoMaskEvaluator(category_list)
     coco_evaluator.add_single_ground_truth_image_info(
         image_id='image1',
         groundtruth_dict={
@@ -639,7 +657,10 @@ class CocoMaskEvaluationTest(tf.test.TestCase):
 class CocoMaskEvaluationPyFuncTest(tf.test.TestCase):
 
   def testGetOneMAPWithMatchingGroundtruthAndDetections(self):
-    coco_evaluator = coco_evaluation.CocoMaskEvaluator(_get_categories_list())
+    category_list = [{'id': 0, 'name': 'person'},
+                     {'id': 1, 'name': 'cat'},
+                     {'id': 2, 'name': 'dog'}]
+    coco_evaluator = coco_evaluation.CocoMaskEvaluator(category_list)
     image_id = tf.placeholder(tf.string, shape=())
     groundtruth_boxes = tf.placeholder(tf.float32, shape=(None, 4))
     groundtruth_classes = tf.placeholder(tf.float32, shape=(None))
@@ -734,7 +755,6 @@ class CocoMaskEvaluationPyFuncTest(tf.test.TestCase):
     self.assertFalse(coco_evaluator._image_ids_with_detections)
     self.assertFalse(coco_evaluator._image_id_to_mask_shape_map)
     self.assertFalse(coco_evaluator._detection_masks_list)
-
 
 if __name__ == '__main__':
   tf.test.main()

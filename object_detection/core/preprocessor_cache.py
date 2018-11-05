@@ -67,7 +67,7 @@ class PreprocessorCache(object):
 
   def clear(self):
     """Resets cache."""
-    self._history = defaultdict(dict)
+    self._history = {}
 
   def get(self, function_id, key):
     """Gets stored value given a function id and key.

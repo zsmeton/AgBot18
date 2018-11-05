@@ -1,5 +1,15 @@
+Training:
+go into trainedModel directory
+trainedModel: python train.py --logtostderr --train_dir=training --pipeline_config_path=pretrainedModel/pipeline.config
+if it begins to output
+global step 2: loss = 5.3217 (0.427 sec/step)
+then increase batch size in pretrainedModel/pipeline.config until it outputs soemthing like Dst tensor is not initialized.
+then decrease batch size by 1 and run again.
+
+
+
 To make TFRecords:
-    in csvToTFR.py: on line 31 we will change our label instead of “racoon”. For example, in my case it will be “nodules”.
+    in csvToTFR.py: on line 31 we will change our label instead of “racoon”. For example, in my case it will be “corn”.
                     You can add multiple class if you need to detect multiple objects.
     in terminal: python csvToTFR.py --csv_input=data/train.csv  --output_path=data/train.record
     in terminal: python csvToTFR.py --csv_input=data/test.csv --output_path=data/test.record
@@ -52,6 +62,7 @@ Download Pre-trained model:
          }
         label_map_path: "PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt"  shuffle: false
         num_readers: 1}
+
         #after
         eval_input_reader: {
         tf_record_input_reader {
@@ -63,9 +74,7 @@ Download Pre-trained model:
         }
 
 Run Commands:
-    python train.py --logtostderr \
-    --train_dir=training/ \
-    --pipeline_config_path=training/desiredmodel.config
+    python train.py --logtostderr --train_dir=training --pipeline_config_path=pretrainedModel/pipeline.config
 
     python eval.py \
     --logtostderr \

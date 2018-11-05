@@ -1,0 +1,38 @@
+<annotation>
+	<folder>Giant Ragweed</folder>
+	<filename>Rag1.jpg</filename>
+	<path>/home/thomas/Desktop/Giant Ragweed/Rag1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2481</width>
+		<height>3492</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Giant Ragweed</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>761</xmin>
+			<ymin>223</ymin>
+			<xmax>1574</xmax>
+			<ymax>1523</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Giant Ragweed</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>384</xmin>
+			<ymin>2200</ymin>
+			<xmax>706</xmax>
+			<ymax>2519</ymax>
+		</bndbox>
+	</object>
+</annotation>

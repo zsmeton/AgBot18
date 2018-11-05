@@ -21,8 +21,10 @@ Based on PNASNet model: https://arxiv.org/abs/1712.00559
 import tensorflow as tf
 
 from object_detection.meta_architectures import faster_rcnn_meta_arch
-from nets.nasnet import nasnet_utils
-from nets.nasnet import pnasnet
+import sys
+sys.path.append("../../")
+from slim.nets.nasnet import nasnet_utils
+from slim.nets.nasnet import pnasnet
 
 arg_scope = tf.contrib.framework.arg_scope
 slim = tf.contrib.slim

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+
 """Label map utility functions."""
 
 import logging
@@ -72,10 +73,10 @@ def get_max_label_map_index(label_map):
 def convert_label_map_to_categories(label_map,
                                     max_num_classes,
                                     use_display_name=True):
-  """Given label map proto returns categories list compatible with eval.
+  """Loads label map proto and returns categories list compatible with eval.
 
-  This function converts label map proto and returns a list of dicts, each of
-  which  has the following keys:
+  This function loads a label map and returns a list of dicts, each of which
+  has the following keys:
     'id': (required) an integer id uniquely identifying this category.
     'name': (required) string representing category name
       e.g., 'cat', 'dog', 'pizza'.
@@ -88,10 +89,9 @@ def convert_label_map_to_categories(label_map,
     label_map: a StringIntLabelMapProto or None.  If None, a default categories
       list is created with max_num_classes categories.
     max_num_classes: maximum number of (consecutive) label indices to include.
-    use_display_name: (boolean) choose whether to load 'display_name' field as
-      category name.  If False or if the display_name field does not exist, uses
-      'name' field as category names instead.
-
+    use_display_name: (boolean) choose whether to load 'display_name' field
+      as category name.  If False or if the display_name field does not exist,
+      uses 'name' field as category names instead.
   Returns:
     categories: a list of dictionaries representing all possible categories.
   """
@@ -107,9 +107,8 @@ def convert_label_map_to_categories(label_map,
     return categories
   for item in label_map.item:
     if not 0 < item.id <= max_num_classes:
-      logging.info(
-          'Ignore item %d since it falls outside of requested '
-          'label range.', item.id)
+      logging.info('Ignore item %d since it falls outside of requested '
+                   'label range.', item.id)
       continue
     if use_display_name and item.HasField('display_name'):
       name = item.display_name
@@ -189,44 +188,20 @@ def get_label_map_dict(label_map_path,
   return label_map_dict
 
 
-def create_categories_from_labelmap(label_map_path, use_display_name=True):
-  """Reads a label map and returns categories list compatible with eval.
-
-  This function converts label map proto and returns a list of dicts, each of
-  which  has the following keys:
-    'id': an integer id uniquely identifying this category.
-    'name': string representing category name e.g., 'cat', 'dog'.
-
-  Args:
-    label_map_path: Path to `StringIntLabelMap` proto text file.
-    use_display_name: (boolean) choose whether to load 'display_name' field
-      as category name.  If False or if the display_name field does not exist,
-      uses 'name' field as category names instead.
-
-  Returns:
-    categories: a list of dictionaries representing all possible categories.
-  """
-  label_map = load_labelmap(label_map_path)
-  max_num_classes = max(item.id for item in label_map.item)
-  return convert_label_map_to_categories(label_map, max_num_classes,
-                                         use_display_name)
-
-
-def create_category_index_from_labelmap(label_map_path, use_display_name=True):
+def create_category_index_from_labelmap(label_map_path):
   """Reads a label map and returns a category index.
 
   Args:
     label_map_path: Path to `StringIntLabelMap` proto text file.
-    use_display_name: (boolean) choose whether to load 'display_name' field
-      as category name.  If False or if the display_name field does not exist,
-      uses 'name' field as category names instead.
 
   Returns:
     A category index, which is a dictionary that maps integer ids to dicts
     containing categories, e.g.
     {1: {'id': 1, 'name': 'dog'}, 2: {'id': 2, 'name': 'cat'}, ...}
   """
-  categories = create_categories_from_labelmap(label_map_path, use_display_name)
+  label_map = load_labelmap(label_map_path)
+  max_num_classes = max(item.id for item in label_map.item)
+  categories = convert_label_map_to_categories(label_map, max_num_classes)
   return create_category_index(categories)
 
 

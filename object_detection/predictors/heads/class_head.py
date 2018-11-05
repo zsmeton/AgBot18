@@ -19,7 +19,6 @@ Contains Class prediction head classes for different meta architectures.
 All the class prediction heads have a predict function that receives the
 `features` as the first argument and returns class predictions with background.
 """
-import functools
 import tensorflow as tf
 
 from object_detection.predictors.heads import head
@@ -212,9 +211,7 @@ class WeightSharedConvolutionalClassHead(head.Head):
                kernel_size=3,
                class_prediction_bias_init=0.0,
                use_dropout=False,
-               dropout_keep_prob=0.8,
-               use_depthwise=False,
-               score_converter_fn=tf.identity):
+               dropout_keep_prob=0.8):
     """Constructor.
 
     Args:
@@ -227,10 +224,6 @@ class WeightSharedConvolutionalClassHead(head.Head):
         conv2d layer before class prediction.
       use_dropout: Whether to apply dropout to class prediction head.
       dropout_keep_prob: Probability of keeping activiations.
-      use_depthwise: Whether to use depthwise convolutions for prediction
-        steps. Default is False.
-      score_converter_fn: Callable elementwise nonlinearity (that takes tensors
-        as inputs and returns tensors).
     """
     super(WeightSharedConvolutionalClassHead, self).__init__()
     self._num_classes = num_classes
@@ -238,8 +231,6 @@ class WeightSharedConvolutionalClassHead(head.Head):
     self._class_prediction_bias_init = class_prediction_bias_init
     self._use_dropout = use_dropout
     self._dropout_keep_prob = dropout_keep_prob
-    self._use_depthwise = use_depthwise
-    self._score_converter_fn = score_converter_fn
 
   def predict(self, features, num_predictions_per_location):
     """Predicts boxes.
@@ -261,11 +252,7 @@ class WeightSharedConvolutionalClassHead(head.Head):
     if self._use_dropout:
       class_predictions_net = slim.dropout(
           class_predictions_net, keep_prob=self._dropout_keep_prob)
-    if self._use_depthwise:
-      conv_op = functools.partial(slim.separable_conv2d, depth_multiplier=1)
-    else:
-      conv_op = slim.conv2d
-    class_predictions_with_background = conv_op(
+    class_predictions_with_background = slim.conv2d(
         class_predictions_net,
         num_predictions_per_location * num_class_slots,
         [self._kernel_size, self._kernel_size],
@@ -277,8 +264,6 @@ class WeightSharedConvolutionalClassHead(head.Head):
     batch_size = features.get_shape().as_list()[0]
     if batch_size is None:
       batch_size = tf.shape(features)[0]
-    class_predictions_with_background = self._score_converter_fn(
-        class_predictions_with_background)
     class_predictions_with_background = tf.reshape(
         class_predictions_with_background, [batch_size, -1, num_class_slots])
     return class_predictions_with_background

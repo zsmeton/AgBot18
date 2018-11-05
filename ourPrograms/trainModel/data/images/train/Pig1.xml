@@ -1,0 +1,26 @@
+<annotation>
+	<folder>Pigweed</folder>
+	<filename>Pig1.jpg</filename>
+	<path>/home/thomas/Desktop/Pigweed/Pig1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>333</width>
+		<height>500</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Redroot Pigweed</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>97</xmin>
+			<ymin>82</ymin>
+			<xmax>232</xmax>
+			<ymax>250</ymax>
+		</bndbox>
+	</object>
+</annotation>

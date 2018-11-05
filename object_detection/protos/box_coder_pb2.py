@@ -26,7 +26,6 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\n\'object_detection/protos/box_coder.proto\x12\x17object_detection.protos\x1a\x33object_detection/protos/faster_rcnn_box_coder.proto\x1a\x30object_detection/protos/keypoint_box_coder.proto\x1a\x33object_detection/protos/mean_stddev_box_coder.proto\x1a.object_detection/protos/square_box_coder.proto\"\xc7\x02\n\x08\x42oxCoder\x12L\n\x15\x66\x61ster_rcnn_box_coder\x18\x01 \x01(\x0b\x32+.object_detection.protos.FasterRcnnBoxCoderH\x00\x12L\n\x15mean_stddev_box_coder\x18\x02 \x01(\x0b\x32+.object_detection.protos.MeanStddevBoxCoderH\x00\x12\x43\n\x10square_box_coder\x18\x03 \x01(\x0b\x32\'.object_detection.protos.SquareBoxCoderH\x00\x12G\n\x12keypoint_box_coder\x18\x04 \x01(\x0b\x32).object_detection.protos.KeypointBoxCoderH\x00\x42\x11\n\x0f\x62ox_coder_oneof')
   ,
   dependencies=[object__detection_dot_protos_dot_faster__rcnn__box__coder__pb2.DESCRIPTOR,object__detection_dot_protos_dot_keypoint__box__coder__pb2.DESCRIPTOR,object__detection_dot_protos_dot_mean__stddev__box__coder__pb2.DESCRIPTOR,object__detection_dot_protos_dot_square__box__coder__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -102,6 +101,7 @@ _BOXCODER.oneofs_by_name['box_coder_oneof'].fields.append(
   _BOXCODER.fields_by_name['keypoint_box_coder'])
 _BOXCODER.fields_by_name['keypoint_box_coder'].containing_oneof = _BOXCODER.oneofs_by_name['box_coder_oneof']
 DESCRIPTOR.message_types_by_name['BoxCoder'] = _BOXCODER
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 BoxCoder = _reflection.GeneratedProtocolMessageType('BoxCoder', (_message.Message,), dict(
   DESCRIPTOR = _BOXCODER,
