@@ -1,3 +1,13 @@
+Training:
+go into trainedModel directory
+trainedModel: python train.py --logtostderr --train_dir=training --pipeline_config_path=pretrainedModel/pipeline.config
+if it begins to output
+global step 2: loss = 5.3217 (0.427 sec/step)
+then increase batch size in pretrainedModel/pipeline.config until it outputs soemthing like Dst tensor is not initialized.
+then decrease batch size by 1 and run again.
+
+
+
 To make TFRecords:
     in csvToTFR.py: on line 31 we will change our label instead of “racoon”. For example, in my case it will be “corn”.
                     You can add multiple class if you need to detect multiple objects.
