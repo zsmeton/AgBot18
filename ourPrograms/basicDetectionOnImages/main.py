@@ -5,16 +5,16 @@
 
 # # Imports
 
-import numpy as np
 import os
-import six.moves.urllib as urllib
 import sys
 import tarfile
-import tensorflow as tf
-
 from distutils.version import StrictVersion
-from matplotlib import pyplot as plt
+
+import numpy as np
+import six.moves.urllib as urllib
+import tensorflow as tf
 from PIL import Image
+from matplotlib import pyplot as plt
 
 # This is needed since the notebook is stored in the object_detection folder.
 
